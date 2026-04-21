@@ -1,0 +1,85 @@
+[versions]
+kotlin = "2.2.20"
+agp = "8.6.1"
+
+# Compose Multiplatform
+compose = "1.10.3"
+compose-plugin = "1.6.11"
+androidx-activityCompose = "1.10.0"
+
+# Ktor
+ktor = "2.3.7"
+
+# Coroutines
+coroutines = "1.9.0"
+lifecycleRuntimeCompose = "2.8.0"
+transportRuntime = "4.1.0"
+
+kamel = "0.9.4"
+multiplatform-settings = "1.1.1"
+adsMobileSdk = "0.25.0-beta01"
+voyager = "1.0.0"
+foundationAndroid = "1.10.6"
+material3 = "1.4.0"
+
+[libraries]
+
+# ========================
+# 🔹 Compose Multiplatform
+# ========================
+#compose-material3 = { module = "org.jetbrains.compose.material3:material3"}
+compose-ui = { module = "org.jetbrains.compose.ui:ui" }
+# Compose UI
+
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"}
+
+# Activity Compose
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+# ========================
+# 🔹 Ktor (MULTIPLATFORM)
+# ========================
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+# The specific JSON serializer for Ktor
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+
+ktor-android = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+# ========================
+# 🔹 Serialization
+# ========================
+kotlinx-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.3" }
+lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+transport-runtime = { group = "com.google.android.datatransport", name = "transport-runtime", version.ref = "transportRuntime" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
+settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
+settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatform-settings" }
+ads-mobile-sdk = { group = "com.google.android.libraries.ads.mobile.sdk", name = "ads-mobile-sdk", version.ref = "adsMobileSdk" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+
+[plugins]
+
+# Kotlin Multiplatform
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+# Android
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+
+# Serialization
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# Compose Multiplatform (IMPORTANT)
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
