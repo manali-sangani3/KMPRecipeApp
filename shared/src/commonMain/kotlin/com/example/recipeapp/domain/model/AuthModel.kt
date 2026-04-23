@@ -6,6 +6,7 @@ enum class SortType {
 }
 
 @Serializable
+
 data class RecipeListResponse(
     val recipes: List<Recipe>,
     val total: Int,
@@ -19,7 +20,7 @@ data class Recipe(
     val name: String,
     val ingredients: List<String>,
     val instructions: List<String>,
-    val tags: List<String>,
+//    val tags: List<String>,
     val prepTimeMinutes: Int,
     val cookTimeMinutes: Int,
     val servings: Int,

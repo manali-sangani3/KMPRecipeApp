@@ -39,13 +39,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.koin.compose.koinInject
 
 class AddEditRecipeScreenVoyager(private val recipe: Recipe? = null) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val viewModel =
-            remember { AddRecipeViewModel(AppModule.addRecipeUseCase, AppModule.editRecipeUseCase) }
+        val viewModel: AddRecipeViewModel = koinInject()
         val state by viewModel.state.collectAsState()
         val snackbarHostState = remember { SnackbarHostState() }
         val isEdit = recipe != null

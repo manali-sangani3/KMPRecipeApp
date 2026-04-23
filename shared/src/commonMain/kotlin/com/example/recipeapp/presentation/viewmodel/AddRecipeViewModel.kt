@@ -1,5 +1,7 @@
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -9,6 +11,7 @@ class AddRecipeViewModel(
     private val editRecipeUseCase: EditRecipeUseCase
 ) : ViewModel() {
 
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val _state = MutableStateFlow(AddRecipeUiState())
     val state: StateFlow<AddRecipeUiState> = _state
 
@@ -98,11 +101,10 @@ class AddRecipeViewModel(
     }
 
     fun saveRecipe() {
-        viewModelScope.launch {
+        scope.launch {
 
             val current = _state.value
 
-            // 🔴 VALIDATION
             if (current.name.isBlank()) {
                 _state.value = current.copy(error = "Name required")
                 return@launch
@@ -144,7 +146,7 @@ class AddRecipeViewModel(
     }
 
     fun updateRecipe(id: Int) {
-        viewModelScope.launch {
+        scope.launch {
 
             val current = _state.value
 

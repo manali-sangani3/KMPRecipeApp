@@ -1,8 +1,12 @@
-class GetAllRecipeUseCase(private val repo: RecipeRepository) {
+import kotlinx.coroutines.CoroutineDispatcher
+
+class GetAllRecipeUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(
         limit: Int,
         skip: Int,
         query: String
     ) =
-        repo.getAllRecipes(limit, skip,query)
+        repository.getAllRecipes(limit, skip, query)
 }

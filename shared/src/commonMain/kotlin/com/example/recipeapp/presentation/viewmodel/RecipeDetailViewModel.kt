@@ -1,5 +1,7 @@
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -7,12 +9,12 @@ import kotlinx.coroutines.launch
 class RecipeDetailViewModel(
     private val getRecipeUseCase: GetRecipeUseCase
 ) : ViewModel() {
-
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val _stateRecipe = MutableStateFlow(SingleRecipeUiState(isLoading = true))
     val stateRecipe: StateFlow<SingleRecipeUiState> = _stateRecipe
 
     fun getRecipe(id: Int) {
-        viewModelScope.launch {
+        scope.launch {
 
             val result = getRecipeUseCase(id)
 
@@ -31,12 +33,5 @@ class RecipeDetailViewModel(
                 }
             )
         }
-    }
-    fun onEditRecipe(recipe: Recipe) {
-        // later you can open dialog or navigate
-    }
-
-    fun clearSelectedRecipe() {
-        _stateRecipe.value = SingleRecipeUiState()
     }
 }

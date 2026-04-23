@@ -1,7 +1,8 @@
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import cafe.adriel.voyager.core.model.ScreenModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -11,9 +12,10 @@ class HomeViewModel(
     private val sortRecipesUseCase: SortRecipesUseCase,
     private val deleteRecipeUseCase: DeleteRecipeUseCase,
     private val getRecipesByTagUseCase: TagFilterUseCase,
-    private val getAllTagsUseCase: GetAllTagsUseCase,
-) : ViewModel(), ScreenModel {
+    private val getAllTagsUseCase: GetAllTagsUseCase
+) : ViewModel() {
 
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val _state = MutableStateFlow(RecipeUiState(isLoading = true))
     private val _stateRecipe = MutableStateFlow(SingleRecipeUiState(isLoading = true))
     private val _stateDeleteRecipe = MutableStateFlow(SingleRecipeUiState(isLoading = true))
@@ -30,7 +32,7 @@ class HomeViewModel(
     }
 
     private fun loadTags() {
-        viewModelScope.launch {
+        scope.launch {
 
             val result = getAllTagsUseCase()
 
@@ -55,7 +57,7 @@ class HomeViewModel(
     fun loadRecipes(
         isLoadMore: Boolean = false
     ) {
-        viewModelScope.launch {
+        scope.launch {
 
             val currentState = _state.value
             val query = currentState.searchQuery
@@ -176,7 +178,7 @@ class HomeViewModel(
 
         searchJob?.cancel()
 
-        searchJob = viewModelScope.launch {
+        searchJob = scope.launch {
             kotlinx.coroutines.delay(400)
 
             _state.value = _state.value.copy(
@@ -188,7 +190,7 @@ class HomeViewModel(
     }
 
     fun onDeleteRecipe(id: Int) {
-        viewModelScope.launch {
+        scope.launch {
 
             val result = deleteRecipeUseCase(id)
 
@@ -216,4 +218,5 @@ class HomeViewModel(
     fun clearSelectedRecipe() {
         _stateRecipe.value = SingleRecipeUiState()
     }
+
 }

@@ -1,7 +1,9 @@
-class TagFilterUseCase(private val repo: RecipeRepository) {
+class TagFilterUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(
         tag: String, limit: Int,
         skip: Int
     ) =
-        repo.getRecipesByTag(tag, limit, skip)
+        repository.getRecipesByTag(tag, limit, skip)
 }

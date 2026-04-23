@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.koin.compose.koinInject
 
 class DetailScreenVoyager(
     private val recipeId: Int
@@ -24,9 +25,7 @@ class DetailScreenVoyager(
 
         val navigator = LocalNavigator.current
 
-        val viewModel = remember {
-            RecipeDetailViewModel(AppModule.getRecipeUseCase)
-        }
+        val viewModel: RecipeDetailViewModel = koinInject()
 
         val state by viewModel.stateRecipe.collectAsState()
 

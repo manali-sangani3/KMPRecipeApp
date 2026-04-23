@@ -44,9 +44,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import org.koin.compose.koinInject
 
 
 class HomeScreen : Screen {
@@ -55,23 +55,14 @@ class HomeScreen : Screen {
     override fun Content() {
 
         val navigator = LocalNavigator.current
-
-        val viewModel = rememberScreenModel {
-            HomeViewModel(
-                AppModule.getAllRecipeUseCase,
-                AppModule.sortRecipesUseCase,
-                AppModule.deleteRecipeUseCase,
-                AppModule.tagFilterUseCase,
-                AppModule.getAllTagsUseCase,
-            )
-        }
+        val viewModel: HomeViewModel = koinInject()
         val state by viewModel.state.collectAsState()
         val stateRecipe by viewModel.stateRecipe.collectAsState()
         val stateDeleteRecipe by viewModel.stateDeleteRecipe.collectAsState()
         var showBottomSheet by remember { mutableStateOf(false) }
         val listState = rememberLazyListState()
         val snackbarHostState = remember { SnackbarHostState() }
-
+        
         Scaffold(
             contentWindowInsets = WindowInsets.safeDrawing,
             containerColor = Color.White,
@@ -177,6 +168,7 @@ class HomeScreen : Screen {
 
                 state.error?.let {
                     Text("Error: $it")
+                    println("Error: $it")
                 }
 
                 if (state.recipes.isEmpty() && state.searchQuery.isNotEmpty()) {

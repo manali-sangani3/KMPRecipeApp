@@ -1,9 +1,11 @@
-class SortRecipesUseCase(private val repo: RecipeRepository) {
+class SortRecipesUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(
         order: String,
         limit: Int,
         skip: Int,
         query: String
     ) =
-        repo.sortRecipes(order, limit, skip, query)
+        repository.sortRecipes(order, limit, skip, query)
 }

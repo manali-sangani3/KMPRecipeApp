@@ -1,8 +1,10 @@
-class AddRecipeUseCase(private val repo: RecipeRepository) {
+class AddRecipeUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(
         request: AddRecipeRequest
     ) =
-        repo.addRecipe(
+        repository.addRecipe(
             request
         )
 }

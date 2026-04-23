@@ -10,7 +10,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 
-class RecipeApi(private val client: HttpClient) {
+    class RecipeApi(private val client: HttpClient) {
 
 
     suspend fun getAllRecipes(

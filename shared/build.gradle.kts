@@ -60,8 +60,14 @@ kotlin {
                 implementation(libs.settings.no.arg)
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.screenmodel)
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.androidx.compose)
 
             }
+        }
+        commonTest.dependencies {
+            implementation(libs.koin.test)
         }
 
         val androidMain by getting {
@@ -70,6 +76,7 @@ kotlin {
                 implementation(libs.ktor.android)
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.ktor.serialization)
+                implementation(libs.koin.androidx.compose)
 
             }
         }

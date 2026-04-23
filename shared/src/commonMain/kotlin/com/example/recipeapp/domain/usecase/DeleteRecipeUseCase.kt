@@ -1,8 +1,10 @@
-class DeleteRecipeUseCase(private val repo: RecipeRepository) {
+class DeleteRecipeUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(
         id: Int
     ) =
-        repo.deleteRecipe(
+        repository.deleteRecipe(
             id
         )
 }

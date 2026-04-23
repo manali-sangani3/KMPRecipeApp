@@ -1,4 +1,6 @@
-class GetRecipeUseCase(private val repo: RecipeRepository) {
+class GetRecipeUseCase(
+    private val repository: RecipeRepository,
+) {
     suspend operator fun invoke(id: Int) =
-        repo.getRecipe(id = id)
+        repository.getRecipe(id = id)
 }
